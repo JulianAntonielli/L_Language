@@ -1,6 +1,10 @@
 require_relative 'utils'
 
-
+=begin
+	
+rescue Exception => e
+	
+endb
 lines = ["[A1]   X2131   +", "[B3]Z1-"]
 
 puts "Lines input: "
@@ -16,3 +20,13 @@ end
 
 puts "Parsed:"
 instructions.each { |inst| puts inst}
+
+=end
+
+i = 0
+loop do
+	line = gets.chomp
+	inst = line.parse i
+	puts inst
+	i += 1
+end
