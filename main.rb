@@ -1,28 +1,5 @@
 require_relative 'utils'
-
 =begin
-	
-rescue Exception => e
-	
-endb
-lines = ["[A1]   X2131   +", "[B3]Z1-"]
-
-puts "Lines input: "
-lines.each { |line| puts line}
-
-
-
-i = -1
-instructions = lines.map do |line|
- i += 1
- line.parse i
-end
-
-puts "Parsed:"
-instructions.each { |inst| puts inst}
-
-=end
-
 i = 0
 loop do
 	line = gets.chomp
@@ -30,3 +7,32 @@ loop do
 	puts inst
 	i += 1
 end
+=end
+
+
+=begin
+lines = ["[A1]   X1   +", "[B3]Z1+", "[C3]X2?[B3]" ]
+
+puts "Lines input: "
+lines.each { |line| puts "\t#{line}"}
+
+i = 0
+instructions = lines.map do |line|
+ i += 1
+ line.parse i
+end
+
+puts "\nParsed:"
+instructions.each { |inst| puts inst}
+
+puts "\nVariables found:"
+vars = Variable.all.each {|k,v| puts "#{v}\t:\t#{v.value}"}
+
+program = Program.new instructions
+program.run
+
+puts "\nExecuting instructions..."
+=end
+
+start
+

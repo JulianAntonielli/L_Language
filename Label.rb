@@ -22,4 +22,16 @@ class Label
 	def == l
 		@number == l.number && @letter == l.letter
 	end
+
+	def hash
+		@number.hash
+	end
+	
+	def eql? lab
+		if lab.instance_of? Label	
+			@number.eql?(lab.number) && @letter.eql?(lab.letter)
+		else
+			false
+		end
+	end	
 end
