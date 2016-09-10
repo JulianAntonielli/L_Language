@@ -7,9 +7,18 @@
 
 # It works!
 class Program
-	def self.terminate
+
+	def self.parse_from_file file
+		instructions = []
+		file.each do |line|
+			instructions << Instruction.parse line
+		end
 	end
 
+
+
+	def self.terminate
+	end
 
 	def initialize instructions = nil
 		@instructions = instructions

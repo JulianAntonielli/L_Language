@@ -1,4 +1,12 @@
-require_relative 'utils'
+require_relative 'core/utils'
+
+unless ARGV.size.zero?
+	program_path = ARGV[0]
+	if File.file? program_path
+		Program.parse_from_file program_path
+	end
+end 
+
 =begin
 i = 0
 loop do
@@ -34,5 +42,5 @@ program.run
 puts "\nExecuting instructions..."
 =end
 
-start
+Shell.start
 
