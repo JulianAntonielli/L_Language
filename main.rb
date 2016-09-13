@@ -1,11 +1,20 @@
 require_relative 'core/utils'
 
-unless ARGV.size.zero?
+if ARGV.size.zero?
+	Shell.start
+else
 	program_path = ARGV[0]
 	if File.file? program_path
-		Program.parse_from_file program_path
+		p = Program.parse_from_file File.open(program_path)
 	end
-end 
+
+	if ARGV[1] == '-s'
+		p.snapshots_on = true
+	end
+
+	p.run
+end
+
 
 =begin
 i = 0
@@ -15,10 +24,7 @@ loop do
 	puts inst
 	i += 1
 end
-=end
 
-
-=begin
 lines = ["[A1]   X1   +", "[B3]Z1+", "[C3]X2?[B3]" ]
 
 puts "Lines input: "
@@ -42,5 +48,5 @@ program.run
 puts "\nExecuting instructions..."
 =end
 
-Shell.start
+#Shell.start
 

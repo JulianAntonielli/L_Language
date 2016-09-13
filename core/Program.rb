@@ -7,15 +7,13 @@
 
 # It works!
 class Program
+	attr_accessor :snapshots_on
 
 	def self.parse_from_file file
 		instructions = []
-		file.each do |line|
-			instructions << Instruction.parse line
-		end
+		file.each { |line| instructions << Instruction.parse(line) }
+		Program.new instructions
 	end
-
-
 
 	def self.terminate
 	end
@@ -29,6 +27,7 @@ class Program
 		#si me pasan un string, hacer otras.
 		#si me pasan un array de instrucciones, @instructions = instructions
 	end
+
 	def run
 		instructions = @instructions
 
@@ -40,9 +39,11 @@ class Program
 			index = instructions[index].execute
 			running = false if instructions[index].nil?
 			sleep 1
-			puts "\nVariables:"
-			vars = Variable.all.each {|k,v| puts "#{v}\t:\t#{v.value}"}
 
+			if snapshots_on
+				puts "Variables:"
+				vars = Variable.all.each {|k,v| puts "#{v}\t:\t#{v.value}"}
+			end
 		end
 	end
 end

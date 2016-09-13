@@ -1,13 +1,12 @@
-require_relative 'utils'
+require_relative 'parse'
 # Hacer constructores.
-
 
 # should every instruction hold its index? 
 class Instruction
-	attr_accessor :label, :variable, :index
+	attr_accessor :label, :variable, :id
+	extend Parser
 	
 	INCREMENT, DECREMENT, GOTO  = "+", "-", "?"
-
 
 	#guardar instrucciones segund orden de aparicion en input.
 	@@instructions = Array.new
@@ -17,36 +16,33 @@ class Instruction
 	def initialize
 		@@instructions[@@index] = self
 		#giving instructions its index
-		@index = @@index
+		@id = @@index
 		@@index += 1
 	end
 
 	def execute
 		puts "Executing #{self}"
-		@index + 1
+		@id + 1
 	end
-
 
 	def to_s
 		"Label: #{label}. Variable: #{variable}"
+	end
+
+	def self.find id
+		@@instructions[id]
 	end
 
 	def self.all
 		@@instructions
 	end
 
-	def self.byLabel label
+	def self.by_label label
 		#buscar como hacer mejor.
-		instByLabel = {}
-		@@instructions.each_with_index do |inst, index|
-			instByLabel[inst.label] = index
-		end
-		
-		@@instructions[instByLabel[label]]
+		@@instructions.find { |instruction| instruction.label == label }
 	end
 
 end
-
 
 class IncrementInstruction < Instruction
 	def to_s
@@ -79,10 +75,9 @@ class GoToInstruction < Instruction
 
 	def execute
 		puts "Executing #{self}"
-		gotoInst = Instruction.byLabel @label_2
-		puts "gotoinst : #{gotoInst}"
-		Program.terminate if gotoInst.nil?
-
-		gotoInst.index
+		goto_inst = Instruction.by_label @label_2
+		puts "gotoinst : #{goto_inst}"
+		Program.terminate if goto_inst.nil?
+		goto_inst.id
 	end
 end

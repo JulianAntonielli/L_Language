@@ -1,4 +1,4 @@
-require_relative 'utils'
+require_relative 'instruction'
 
 module Shell
 	@line_number = 1
@@ -7,11 +7,11 @@ module Shell
 		loop do
 			begin
 				print "ill:#{line_number}>"
-				input_line = gets.chomp
-				instruction = input_line.parse @line_number
+				line = gets.chomp
+				instruction = Instruction.parse line
 				puts instruction
 			rescue Exception => e 		#catch exceptions and do smth
-				puts "Your last expression raised an error"
+				raise e
 			end
 			@line_number += 1
 		end
