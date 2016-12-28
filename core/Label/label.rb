@@ -1,6 +1,6 @@
 class Label
 	LETTERS = ["A", "B", "C", "D", "E"]
-	attr_accessor :letter, :number
+	attr_reader :letter, :number
 
 	def initialize letter, number
 		if LETTERS.include? letter
@@ -12,26 +12,18 @@ class Label
 	end
 
 	def to_s
-		"[#{@letter + @number.to_s}]"
+		letter + number.to_s
 	end
 
 	def length
 		3 + number.to_s.length
 	end
 
-	def == l
-		@number == l.number && @letter == l.letter
+	def == label
+		number == label.number && letter == label.letter
 	end
 
 	def hash
-		@number.hash
+		number.hash
 	end
-	
-	def eql? lab
-		if lab.instance_of? Label	
-			@number.eql?(lab.number) && @letter.eql?(lab.letter)
-		else
-			false
-		end
-	end	
 end

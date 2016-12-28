@@ -1,0 +1,3 @@
+# Ignore OS X system file.
+
+.DS_Store
